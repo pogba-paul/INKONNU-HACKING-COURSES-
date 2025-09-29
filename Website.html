@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>INKONNUHACKINGCOURSES</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html,body { height:100%; font-family: 'Poppins', sans-serif; color:#e6fff8; background:transparent; overflow:hidden; }
+
+    /* خلفية الماتريكس */
+    #code-rain {
+      position: fixed; inset: 0; z-index: -3;
+      pointer-events: none;
+      opacity: 0.9;
+      filter: blur(0.6px) contrast(1.1);
+    }
+
+    .scanline {
+      position: fixed; left:-10%; top:0; width:120%; height:2px;
+      background: linear-gradient(90deg, transparent, rgba(0,255,150,0.06), transparent);
+      animation: scan 6s linear infinite;
+      z-index: -1;
+      pointer-events: none;
+    }
+    @keyframes scan { 0%{transform:translateY(-10%)} 100%{transform:translateY(110%)} }
+
+    .container {
+      position: relative; z-index: 2;
+      display:flex; flex-direction:column; align-items:center;
+      padding:48px 18px; height:100%; overflow-y:auto;
+      scrollbar-width: thin;
+    }
+
+    .card {
+      width: 100%; max-width:920px;
+      background: rgba(0,0,0,0.25);
+      border-radius: 16px;
+      padding:28px;
+      border: 1px solid rgba(0,255,150,0.08);
+      box-shadow: 0 6px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+      backdrop-filter: blur(10px) saturate(140%);
+      animation: fadeIn 0.9s ease both;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+
+    .profile-pic { width:140px; height:140px; border-radius:50%; object-fit:cover; border:3px solid rgba(0,255,150,0.2); margin:6px auto 12px; display:block; }
+    h1 { font-size:2.4rem; text-align:center; margin-bottom:6px; font-weight:700; letter-spacing:1px; color:#b6fff0; text-shadow: 0 2px 18px rgba(0,255,150,0.2); font-family: monospace; }
+
+    .lead-ar {
+      color: #ffffff;
+      font-size: 14px;
+      text-align: center;
+      line-height: 1.6;
+      margin: 10px auto;
+      max-width: 760px;
+      font-weight: 700;
+      font-family: 'Tajawal', 'Arial', sans-serif;
+      direction: rtl;
+    }
+    .lead-en {
+      color: #cfeee6;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.5;
+      margin: 6px auto 18px;
+      max-width: 760px;
+      font-weight: 600;
+      font-family: 'Verdana', sans-serif;
+      direction: ltr;
+    }
+
+    .btn-row { display:flex; gap:12px; flex-direction:column; align-items:center; margin-top:18px; }
+
+    .telegram-btn, .whatsapp-btn {
+      display:inline-block; padding:9px 18px; border-radius:36px; color:#001019; text-decoration:none; font-weight:700;
+      box-shadow: 0 6px 30px rgba(0,255,150,0.08), inset 0 0 18px rgba(0,255,150,0.06);
+      transition: transform .18s ease, box-shadow .18s ease;
+      min-width: 180px;
+      text-align:center;
+      backdrop-filter: blur(6px);
+    }
+    .telegram-btn { background: linear-gradient(135deg,rgba(0,212,255,0.8),rgba(0,114,255,0.8)); color:#001; }
+    .whatsapp-btn { background: linear-gradient(135deg,rgba(37,211,102,0.8),rgba(18,140,126,0.8)); color:#001; }
+    .telegram-btn:hover, .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(0,255,150,0.12); }
+
+    .gallery {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap:18px;
+      margin-top:22px;
+      align-items:start;
+    }
+
+    .gallery-item {
+      text-align:center; padding:10px;
+      border-radius:12px;
+      transition: transform .18s ease, box-shadow .18s ease;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(255,255,255,0.05);
+      position:relative; overflow:visible;
+      backdrop-filter: blur(6px);
+    }
+    .gallery-item:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,0.5); }
+
+    .gallery-item img {
+      width:100%; border-radius:10px; border:2px solid rgba(0,255,150,0.12);
+      display:block; margin:0 auto;
+      height:165px; object-fit:cover;
+      transition: transform .25s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    .gallery-item h2 {
+      font-family: monospace;
+      font-size:1rem;
+      margin-top:12px;
+      color:#cffff1;
+      position:relative;
+      padding-bottom:8px;
+      letter-spacing:0.4px;
+    }
+    .gallery-item h2::after {
+      content: "";
+      display:block;
+      height:2px;
+      width:60%;
+      margin:8px auto 0;
+      background: linear-gradient(90deg, rgba(0,255,150,0.9), rgba(0,200,255,0.6));
+      border-radius:2px;
+      box-shadow: 0 6px 18px rgba(0,255,150,0.1);
+    }
+
+    /* جعل جميع الكلمات الغامقة بوزن موحد */
+     .netflix,
+    .spotify,
+    .facebook,
+    .instagram,
+    .whatsapp,
+    .AppHack,
+    .Termuxicon,
+    .sketchware,
+    .Rat,
+    .python,
+    .javascript,
+    .java,
+    .csharp,
+    .php,
+    .ruby,
+    .go,
+    .html,
+    .css {
+      font-weight: bold;
+    }
+
+    .netflix { color: #E50914; }
+    .spotify { color: #1DB954; }
+    .facebook { color: #1877F2; }
+    .instagram {
+      background: linear-gradient(45deg, #4f5bd5, #962fbf, #d62976, #962fbf, #4f5bd5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .whatsapp { color: #25D366; }
+    .sketchware {  
+      background: linear-gradient(100deg, #1Dffff, #1D91FF, #1dffff, #1D91FF, #1D91FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .centretextinko { font-size: 30px ;
+text-align: center ;
+font-weight: bold;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(90deg, #01D9C2, #00595D, #01D9C2, #003B41, #01D9C2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 10px; }
+    .styltextdeff { font-family : 'cario' , sans-serif;
+font-size: 12px;
+text-align: center ; }
+.sketchware {  background: linear-gradient(100deg, #1Dffff, #1D91FF, #1dffff, #1D91FF, #1D91FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+    .Rat {  
+      background: linear-gradient( 80deg, #F43D63, #DB0000, #DB0000, #FF3636, #F43D63);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .python { color: #3572A5; }
+    .javascript { color: #F7DF1E; }
+    .java { color: #b07219; }
+    .csharp { color: #178600; }
+    .php { color: #8892BF; }
+    .html { color: #e34c26; }
+    .css { color: #563d7c; }
+
+    .social-tags {
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+    .lang-tags {
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+    .payment-line {
+      margin-top: 12px;
+      text-align: center;
+      font-weight: 700;
+      font-family: monospace;
+      color: #cffff1;
+      font-size: 13px;
+    }
+    .pay-item {
+      display:flex;
+      gap:8px;
+      align-items:center;
+      text-align:center;
+      font-weight:700;
+      background: rgba(255,255,255,0.02);
+      padding:6px 10px;
+      border-radius:10px;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .pay-item svg { width:22px; height:22px; display:block; }
+
+    @media (max-width:520px) {
+      .profile-pic{ width:110px; height:110px; }
+      .telegram-btn, .whatsapp-btn { min-width: 150px; padding:8px 14px; }
+      .lead-ar { font-size:13px; }
+      .lead-en { font-size:11px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- الخلفية: فقط Matrix -->
+  <canvas id="code-rain"></canvas>
+  <div class="scanline"></div>
+
+  <div class="container">
+    <div class="card">
+      <img src="profile.png" alt="INKONNU" class="profile-pic" />
+      <h1 class="centretextinko">INKONNU HACKING COURSES</h1>
+
+      <p class="lead-ar">
+        مرحبا ! أنا INKONNU  — هكر مغربي. أنا مالك هذا الموقع  لنشر كورسات الهكر. ان كنت مهتم بهذا المجال، فهذا الموقع الأنسب لك
+      </p>
+
+      <p class="lead-en">
+        Hello! I’m INKONNU — a Moroccan hacker. I’m the owner of this website dedicated to sharing hacking courses. If you're interested in this field, then this is the perfect site for you.
+      </p>
+
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="Socialmedia.png" alt="Image 1" />
+          <h2>تهكير حسابات السوشيال ميديا — Hacking Social Media Accounts</h2>
+          <div class="divider">
+            كورسات تعلمك طريقة تهكير حسابات السوشيال ميديا بطرق متعددة وتفعيل الميزات المدفوعة<br>
+            Courses teach methods of social media hacking through various techniques and enabling premium features.
+          </div>
+          <div class="social-tags">
+            <span class="netflix">Netflix</span>
+            <span class="spotify">Spotify</span>
+            <span class="facebook">Facebook</span>
+            <span class="instagram">Instagram</span>
+            <span class="whatsapp">WhatsApp</span>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="AppsVirus.png" alt="Image 2" />
+          <h2>طريقة صناعة تطبيقات وبرامج وفيروسات — How to create Apps, Programs, and Viruses</h2>
+          <div class="divider">من خلال هذه الكورسات لن تجد مشكل في صناعة التطبيقات الهكر و فيروسات تقوم بتدمير الجهاز كاملا إضافة الى البرامج التي تسهل عليك عمليات التهكير<br>Through these courses you will have no probleme in creating Hacking Apps and viruses it destroys the device completely, in addition to the programs that make hacking processes easier for you.
+            <div class="sketchware">sketchware</div>
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="Wifihacker.png" alt="Image 3" />
+          <h2>تهكير شبكات الوايفاي — WI-FI Hacking</h2>
+          <div class="divider">
+            كورسات تهكير الوايفاي عبر الهاتف والحاسوب وعلى أنظمة متعددة.<br>
+            WI-FI hacking by phone, computer, and across multiple systems.
+          </div>
+          <span class="Termuxicon">WEP/WPA<br>WPA2/WPA3</span>
+        </div>
+
+        <div class="gallery-item">
+          <img src="KaliTermux.png" alt="Image 4" />
+          <h2>نظام الترمكس و الكالي لينكس — Termux and Kali Linux Systems</h2>
+          <div class="divider">
+            شرح نظامي كالي وترمكس وكيفية التعامل معهما واحترافهما<br>
+            Explanation of Kali Linux and Termux systems, how to use them and master them.
+          </div>
+          <span class="Termuxicon">Termux >_ &nbsp; • &nbsp; Kali Linux</span>
+        </div>
+
+        <div class="gallery-item">
+          <img src="Cybersecurity.png" alt="Image 5" />
+          <h2>الأمن السيبراني — Cyber Security</h2>
+          <div class="divider">
+            كورس أساسيات الأمن السيبراني، أمن المعلومات، وأمن الشبكات من الألف إلى الياء<br>
+            Cybersecurity basics course, information security, and complete network security from A to Z.
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="androidhacker.png" alt="Image 6" />
+          <h2>تهكير جهاز الأندرويد بالكامل — Full Android Hacking</h2>
+          <div class="divider">ستتعلم تهكير الاندرويد كامل<br>
+الصور، الفيدوهات، الرسائل، الملفات، المكالمات....<br>وكذلك يمكنك التحكم في هاتف الضحية<br>
+You will learn how to hack the complete Android<br>Photos, videos, messages, files, calls...<br>Also the control of victim’s phone</div>
+          <span class="Rat">RAT</span>
+        </div>
+
+        <div class="gallery-item">
+          <img src="languages.png" alt="Image 7" />
+          <h2>تعلم لغات البرمجة — Learning Programming Languages</h2>
+          <div class="divider">تعلم لغات البرمجة و كيفية استعمالها في الهكر<br>Learning programming languages and how to use them in hacker </div>
+          <div class="lang-tags">
+            <div class="python">Python</div>
+            <div class="javascript">JavaScript</div>
+            <div class="java">Java</div>
+            <div class="csharp">C#</div>
+            <div class="php">PHP</div>
+            <div class="html">HTML</div>
+            <div class="css">CSS</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- نص السعر/الوصف فوق الأزرار -->
+      <div style="text-align: center; color: #17C7B0 ; font-weight: bold; margin:18px 0 6px; font-family: monospace;">
+        إذا كنت شغوفًا بعالم الاختراق والهكر، فهذه فرصتك الذهبية! احصل الآن على جميع الكورسات المنشورة، بالإضافة إلى كورسات لم نستطع نشرها — كل هذا بسعر لا يُصدق: فقط 150 درهم!
+        <br>
+If you're passionate about hacking, this is your golden opportunity! Get all the published courses, plus exclusive ones we couldn’t release — all for an unbelievable price: only 150 MAD/15$!
+      </div>
+
+      <!-- طرق الدفع / Payment Methods -->
+      <div class="payment-line">
+        <span>طرق الدفع</span>
+        <span>—</span>
+        <span>Payment Methods</span>
+      </div>
+              <div class="pay-item" title="Cash Plus">Cashplus</div>
+              <div class="pay-item" title="PayPal">PayPal</div>
+
+      <div class="btn-row" style="margin-top:12px;">
+        <a href="https://wa.me/212721140736" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">للتواصل عبر واتساب — Contact on WhatsApp</a>
+        <a href="https://t.me/Inkunnown" class="telegram-btn" target="_blank" rel="noopener noreferrer">للتواصل عبر تيليغرام — Contact on Telegram</a>
+      </div>
+    </div>
+    <footer>© 2025 INKONNU. All rights reserved.</footer>
+  </div>
+
+  <script>
+    (function(){
+      const canvas = document.getElementById('code-rain');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = innerWidth;
+      let h = canvas.height = innerHeight;
+      let cols = Math.floor(w / 16) + 1;
+      let ypos = Array(cols).fill(0);
+      const chars = '01أبتثجحخدذرزسشصضطظعغفقكلمنهوىي@#$%^&*<>/\\[]{}()';
+      function resetSize(){
+        w = canvas.width = innerWidth;
+        h = canvas.height = innerHeight;
+        cols = Math.floor(w / 16) + 1;
+        ypos = Array(cols).fill(0);
+      }
+      window.addEventListener('resize', resetSize);
+      function draw(){
+        ctx.fillStyle = 'rgba(0,0,0,0.08)';
+        ctx.fillRect(0,0,w,h);
+        ctx.fillStyle = '#17C7B0';
+        ctx.font = '15px monospace';
+        ypos.forEach((y, i) => {
+          const text = chars.charAt(Math.floor(Math.random()*chars.length));
+          const x = i * 16;
+          ctx.fillText(text, x, y);
+          if(y > h + Math.random()*1000) ypos[i] = 0;
+          else ypos[i] = y + 16;
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+  </script>
+</body>
+</html>
